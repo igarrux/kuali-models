@@ -9,7 +9,7 @@ Conversión reproducible de
 [`marianbasti/whisper-large-v3-turbo-latam`](https://huggingface.co/marianbasti/whisper-large-v3-turbo-latam)
 para [`whisper.cpp`](https://github.com/ggml-org/whisper.cpp). El modelo de
 origen es un ajuste de Whisper Large v3 Turbo para variedades latinoamericanas
-del español y se distribuye bajo Apache-2.0.
+del español y se distribuye bajo MIT.
 
 | Archivo | Formato | Bytes | SHA-256 |
 | --- | --- | ---: | --- |
@@ -46,7 +46,9 @@ terminar cada descarga y después de cambiar la carpeta de modelos.
 
 ## Licencia y atribución
 
-Este repositorio y sus artefactos derivados se distribuyen bajo Apache-2.0.
+Este repositorio y sus artefactos derivados se distribuyen bajo la
+[licencia MIT](LICENSE).
 Whisper es obra de OpenAI y el ajuste LatAm fue publicado por Marian Basti.
-Consulta también la tarjeta del modelo de origen para conocer sus datos,
-limitaciones y resultados declarados.
+Los ficheros GGML son conversiones modificadas de ese ajuste. Consulta también
+la tarjeta del modelo de origen para conocer sus datos, limitaciones y
+resultados declarados.
