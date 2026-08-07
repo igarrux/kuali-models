@@ -26,6 +26,8 @@ del español y se distribuye bajo Apache-2.0.
   `306c88f4d1286aec1bf96e544632897886af5501`.
 - Recursos de tokenización: OpenAI Whisper
   `5f86d1d86363843179951550570367b37c5d6f78`.
+- Entorno de conversión: CPython 3.11.14, PyTorch 2.13.0,
+  Transformers 5.14.1, Safetensors 0.8.0 y NumPy 2.4.6.
 
 ### Reproducir la conversión
 
