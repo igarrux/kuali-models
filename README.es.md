@@ -5,6 +5,40 @@
 Pesos GGML descargables para [Kuali](https://github.com/igarrux/kuali),
 separados del binario de la aplicación.
 
+## Whisper Large v3 Q8
+
+Cuantización Q8_0 reproducible del peso oficial
+[`ggml-large-v3.bin`](https://huggingface.co/ggerganov/whisper.cpp/blob/main/ggml-large-v3.bin)
+publicado por `whisper.cpp`. Conserva las 32 capas del codificador y del
+decodificador, y reduce el tamaño en disco de 3.095.033.483 a 1.656.538.283 bytes.
+
+| Archivo | Formato | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `ggml-large-v3-q8_0.bin` | Q8_0 | 1.656.538.283 | `24bc434f372355688ab9a623077a63e5361a1c41f4d8d648977e39f9b060f09e` |
+
+### Procedencia
+
+- Origen: `ggml-large-v3.bin` oficial, 3.095.033.483 bytes, SHA-256
+  `64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2`.
+- Cuantizador: `whisper.cpp` v1.8.3, commit
+  `2eeeba56e9edd762b4b38467bab96c2517163158`.
+- Tipo de cuantización: `q8_0`, versión 2 del formato de cuantización.
+
+### Reproducir la cuantización
+
+```bash
+git clone --branch v1.8.3 https://github.com/ggerganov/whisper.cpp.git
+cmake -S whisper.cpp -B whisper.cpp/build \
+  -DWHISPER_BUILD_TESTS=OFF \
+  -DWHISPER_BUILD_EXAMPLES=ON
+cmake --build whisper.cpp/build --target whisper-quantize
+
+whisper.cpp/build/bin/whisper-quantize \
+  ggml-large-v3.bin \
+  ggml-large-v3-q8_0.bin \
+  q8_0
+```
+
 ## Whisper Large v3 Turbo LatAm
 
 Conversión reproducible de
@@ -50,7 +84,7 @@ terminar cada descarga y después de cambiar la carpeta de modelos.
 
 Este repositorio y sus artefactos derivados se distribuyen bajo la
 [licencia MIT](LICENSE).
-Whisper es obra de OpenAI y el ajuste LatAm fue publicado por Marian Basti.
-Los ficheros GGML son conversiones modificadas de ese ajuste. Consulta también
-la tarjeta del modelo de origen para conocer sus datos, limitaciones y
-resultados declarados.
+Whisper es obra de OpenAI. El archivo Large v3 Q8 es un derivado cuantizado del
+peso oficial. El ajuste LatAm fue publicado por Marian Basti y sus archivos GGML
+son conversiones modificadas de ese ajuste. Consulta la tarjeta de cada modelo
+de origen para conocer sus datos, limitaciones y resultados declarados.

@@ -5,6 +5,40 @@
 Downloadable GGML weights for [Kuali](https://github.com/igarrux/kuali), kept
 separate from the application executable.
 
+## Whisper Large v3 Q8
+
+Reproducible Q8_0 quantization of the official
+[`ggml-large-v3.bin`](https://huggingface.co/ggerganov/whisper.cpp/blob/main/ggml-large-v3.bin)
+weight published by `whisper.cpp`. This keeps all 32 encoder and decoder layers
+while reducing the on-disk size from 3,095,033,483 to 1,656,538,283 bytes.
+
+| File | Format | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `ggml-large-v3-q8_0.bin` | Q8_0 | 1,656,538,283 | `24bc434f372355688ab9a623077a63e5361a1c41f4d8d648977e39f9b060f09e` |
+
+### Provenance
+
+- Source: official `ggml-large-v3.bin`, 3,095,033,483 bytes, SHA-256
+  `64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2`.
+- Quantizer: `whisper.cpp` v1.8.3, commit
+  `2eeeba56e9edd762b4b38467bab96c2517163158`.
+- Quantization type: `q8_0`, quantization format version 2.
+
+### Reproduce the quantization
+
+```bash
+git clone --branch v1.8.3 https://github.com/ggerganov/whisper.cpp.git
+cmake -S whisper.cpp -B whisper.cpp/build \
+  -DWHISPER_BUILD_TESTS=OFF \
+  -DWHISPER_BUILD_EXAMPLES=ON
+cmake --build whisper.cpp/build --target whisper-quantize
+
+whisper.cpp/build/bin/whisper-quantize \
+  ggml-large-v3.bin \
+  ggml-large-v3-q8_0.bin \
+  q8_0
+```
+
 ## Whisper Large v3 Turbo LatAm
 
 Reproducible conversion of
@@ -49,7 +83,8 @@ download and whenever the model directory changes.
 ## License and attribution
 
 This repository and its converted artifacts are distributed under the
-[MIT License](LICENSE). Whisper was created by OpenAI, and the LatAm fine-tune
-was published by Marian Basti. The GGML files are modified conversions of that
-fine-tune. Consult the source model card for its dataset, limitations, and
+[MIT License](LICENSE). Whisper was created by OpenAI. The Large v3 Q8 file is a
+quantized derivative of the official Whisper weight. The LatAm fine-tune was
+published by Marian Basti, and its GGML files are modified conversions of that
+fine-tune. Consult each source model card for its dataset, limitations, and
 reported evaluation results.
